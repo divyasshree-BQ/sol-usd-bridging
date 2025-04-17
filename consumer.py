@@ -76,7 +76,7 @@ def process_message(message):
         tx_block = dex_block_message_pb2.DexParsedBlockMessage()
         tx_block.ParseFromString(buffer)
 
-        # print("\nNew ParsedIdlBlockMessage received:\n")
+        print("\nNew DexParsedBlockMessage received:\n")
         # print_protobuf_message(tx_block, encoding='base58')
         # Bridging logic
         bridge_trade_prices(tx_block)

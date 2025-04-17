@@ -2,19 +2,22 @@ from convert import convert_bytes
 # Add this global variable
 last_sol_price_in_usdc = None
 
-# Add WSOL constant
+
 WSOL_MINT = "So11111111111111111111111111111111111111112"
-USDC_SYMBOL = "USDC"
+USDC_MINT = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
 
 def is_wsol(mint_address_bytes):
     return convert_bytes(mint_address_bytes) == WSOL_MINT
 
+def is_usdc(mint_address_bytes):
+    return convert_bytes(mint_address_bytes) == USDC_MINT
+
 def bridge_trade_prices(tx_block):
     global last_sol_price_in_usdc
-    # print(tx_block)
+   
     for tx in tx_block.Transactions:
-        print(tx.Signature)
-        # print(tx.Trades)
+        print(convert_bytes(tx.Signature))
+       
         for trade in tx.Trades:
             if not (trade.HasField("Buy") and trade.HasField("Sell")):
                 continue
@@ -34,11 +37,9 @@ def bridge_trade_prices(tx_block):
             except ZeroDivisionError:
                 continue
 
-            if buy_amount == 0 or sell_amount == 0:
-                continue
+            buy_is_usdc = is_usdc(buy_currency.MintAddress)
+            sell_is_usdc = is_usdc(sell_currency.MintAddress)
 
-            buy_is_usdc = buy_currency.Symbol == USDC_SYMBOL
-            sell_is_usdc = sell_currency.Symbol == USDC_SYMBOL
             buy_is_sol = is_wsol(buy_currency.MintAddress)
             sell_is_sol = is_wsol(sell_currency.MintAddress)
 
