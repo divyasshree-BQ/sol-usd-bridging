@@ -1,6 +1,7 @@
 # Token Price Bridging  (USDC Pricing via Bitquery Streams)
 This Python module processes real-time Solana transaction data from Bitquery Streams and calculates token prices in USDC
-— either through direct trades with USDC 
+
+- either through direct trades with USDC 
 - or by bridging through SOL (Wrapped SOL).
 
 ## How does it work?
