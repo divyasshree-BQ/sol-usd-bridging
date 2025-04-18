@@ -1,0 +1,2 @@
+solana_username=SET_YOUR_USERNAME
+solana_password=SET_YOUR_PASSWORD
